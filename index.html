@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>신이 나를 만든다면</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gowun+Dodum&family=Nanum+Pen+Script&display=swap">
+<style>
+[hidden]{display:none!important}
+img{max-width:100%}
+/* Layout: phone column in three steps — 1 name + department, 2 "God's workshop" mixing animation, 3 the recipe card. Single deliberate collage-paper look matching the printed foam board. */
+:root{
+  --paper:#FBFAF6; --grid:rgba(60,90,140,.13); --ink:#111111; --ink-2:#3A3A3A;
+  --card:#FFFFFF; --accent:#FF7A45; --sky:#8DB8FF; --mint:#5ED3A8; --hi:#FFE14D; --pink:#FF8FB1; --lilac:#C3B1FF;
+  --display:'Black Han Sans','Noto Sans KR',sans-serif;
+  --body:'Gowun Dodum','Noto Sans KR','Apple SD Gothic Neo',sans-serif;
+  --hand:'Nanum Pen Script','Gowun Dodum',cursive;
+  color-scheme:light;
+}
+html,body{background:var(--paper)}
+body{margin:0;color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+.wrap{max-width:480px;margin:0 auto;padding-block:26px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:22px}
+header{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.eyebrow{font-family:var(--hand);font-size:24px;line-height:1;color:var(--ink-2);margin:0}
+h1{margin:0;font-family:var(--display);font-weight:400;font-size:clamp(34px,10vw,48px);line-height:1.1;text-wrap:balance}
+h1 .tag{display:inline-block;background:var(--accent);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:0 10px 4px;transform:rotate(-3deg)}
+.sub{margin:0;color:var(--ink-2)}
+.sub b{background:var(--hi);color:var(--ink);padding:0 3px}
+section{display:flex;flex-direction:column;gap:18px}
+
+.panel{border:3px solid var(--ink);background:var(--card);box-shadow:5px 5px 0 var(--ink);padding:14px 14px 16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.panel label.big{font-family:var(--display);font-size:18px}
+input[type=text]{font:inherit;font-size:18px;border:3px solid var(--ink);padding:10px 12px;background:var(--paper);color:var(--ink);min-width:0;width:100%;box-sizing:border-box}
+input[type=text]:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+fieldset{margin:0;border:3px solid var(--ink);background:var(--card);box-shadow:5px 5px 0 var(--ink);padding:14px 14px 16px;min-width:0}
+legend{font-family:var(--display);font-size:18px;padding:1px 10px;border:2px solid var(--ink);background:var(--hi)}
+fieldset:nth-of-type(2) legend{background:var(--sky)}
+fieldset:nth-of-type(3) legend{background:var(--mint)}
+fieldset:nth-of-type(4) legend{background:var(--pink)}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.opt span{display:block;border:2px solid var(--ink);padding:6px 12px;font-size:15px;background:var(--paper)}
+.opt input:checked+span{background:var(--accent);font-weight:700;box-shadow:3px 3px 0 var(--ink);transform:translate(-1px,-1px)}
+.opt input:focus-visible+span{outline:3px solid var(--sky);outline-offset:2px}
+.btn{appearance:none;font:inherit;font-family:var(--display);font-size:22px;padding:10px 20px;min-height:52px;background:var(--accent);color:var(--ink);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);cursor:pointer;transition:transform .12s,box-shadow .12s}
+.btn:active{transform:translate(4px,4px);box-shadow:1px 1px 0 var(--ink)}
+.btn:disabled{background:#E4E2DA;color:#6B6A64;cursor:not-allowed;box-shadow:5px 5px 0 #9A988F;filter:grayscale(1)}
+.btn{transition:transform .12s,box-shadow .12s,background-color .35s,color .35s}
+.btn.ghost{background:var(--card)}
+.btn:focus-visible{outline:3px solid var(--sky);outline-offset:4px}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.err{margin:0;color:#B3261E;font-weight:700;font-size:14px}
+
+/* step 2: workshop */
+.shop{border:3px solid var(--ink);background:var(--ink);color:var(--paper);box-shadow:6px 6px 0 rgba(17,17,17,.35);padding:28px 20px;display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
+.pot{width:120px;height:120px;border-radius:50%;border:4px solid var(--hi);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:22px;color:var(--hi);animation:spin 1.6s linear infinite;background:repeating-conic-gradient(from 0deg,rgba(255,225,77,.18) 0 15deg,transparent 15deg 30deg)}
+.pot span{animation:spin 1.6s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.shop p{margin:0;font-family:var(--hand);font-size:28px;line-height:1.2;color:var(--hi);min-height:34px}
+.prog{width:100%;height:14px;border:2px solid var(--hi)}
+.prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .35s linear}
+
+/* step 3: recipe */
+.recipe{position:relative;background:var(--card);border:3px solid var(--ink);box-shadow:7px 7px 0 var(--ink);padding:22px 18px 18px;display:flex;flex-direction:column;gap:14px}
+.tape{position:absolute;top:-13px;left:50%;width:96px;height:24px;margin-left:-48px;background:rgba(141,184,255,.85);transform:rotate(-4deg)}
+.recipe .who{margin:0;font-size:14px;font-weight:700;color:var(--ink-2)}
+.recipe h2{margin:0;font-family:var(--display);font-weight:400;font-size:28px;line-height:1.2;text-wrap:balance}
+.recipe h2 em{font-style:normal;background:var(--hi);padding:0 4px}
+.stack{display:flex;height:30px;border:3px solid var(--ink);overflow:hidden}
+.stack i{display:block;height:100%;border-right:2px solid var(--ink);width:0;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.stack i:last-child{border-right:0}
+ol.ing{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+ol.ing li{display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:10px;align-items:center}
+ol.ing .sw{width:18px;height:18px;border:2px solid var(--ink)}
+ol.ing .nm{font-size:17px;font-weight:700;min-width:0}
+ol.ing .nm small{display:block;font-weight:400;font-size:13.5px;color:var(--ink-2)}
+ol.ing .pc{font-family:var(--display);font-size:24px}
+.oops{border:2px dashed var(--ink);background:var(--hi);padding:10px 12px;font-size:15px}
+.oops b{font-family:var(--display);font-weight:400;font-size:16px;display:block}
+.typecard{background:var(--ink);color:var(--paper);padding:14px 16px;display:flex;flex-direction:column;gap:4px;transform:rotate(-1deg)}
+.typecard small{color:var(--hi);font-weight:700;font-size:13px}
+.typecard strong{font-family:var(--display);font-weight:400;font-size:24px;line-height:1.25}
+.quote{margin:0;font-family:var(--hand);font-size:26px;line-height:1.25}
+.meter{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
+.meter .bar{flex:1;height:14px;border:2px solid var(--ink);background:var(--paper);min-width:0}
+.meter .bar i{display:block;height:100%;background:var(--mint);width:0;transition:width .9s ease .3s}
+.jobs{background:var(--card);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:16px;display:flex;flex-direction:column;gap:10px}
+.jobs h3{margin:0;font-family:var(--display);font-weight:400;font-size:20px}
+dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 12px;align-items:baseline}
+dt{font-weight:700;font-size:13px;background:var(--ink);color:var(--paper);padding:1px 8px;white-space:nowrap}
+dd{margin:0;font-size:15.5px;min-width:0}
+.note{font-size:13px;color:var(--ink-2);margin:0}
+footer{display:flex;flex-direction:column;gap:4px;font-size:13px;color:var(--ink-2);text-align:center}
+footer .hand{font-family:var(--hand);font-size:24px;line-height:1.1;color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">충남도립대 취업서포터즈 잘해보JOB</p>
+    <h1>신이 나를<br><span class="tag">만든다면?</span></h1>
+    <p class="sub">신의 공방에서 <b>나는 어떤 재료로</b> 만들어졌을까요?</p>
+  </header>
+
+  <!-- STEP 1 -->
+  <section id="step1" aria-label="이름과 학과 입력">
+    <div class="panel">
+      <label class="big" for="nm">이름 또는 별명</label>
+      <input type="text" id="nm" maxlength="12" autocomplete="off">
+      <p class="note">같은 이름과 학과면 언제나 같은 결과가 나와요. 친구 이름으로도 해 보세요!</p>
+    </div>
+    <div id="groups" style="display:flex;flex-direction:column;gap:16px"></div>
+    <p class="err" id="err" hidden>이름과 학과를 모두 골라 주세요.</p>
+    <div class="row"><button class="btn" id="make" type="button" disabled>신에게 제작 의뢰하기</button></div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section id="step2" hidden aria-live="polite">
+    <div class="shop">
+      <div class="pot" aria-hidden="true"><span>신의<br>공방</span></div>
+      <p id="msg">재료를 고르는 중…</p>
+      <div class="prog" aria-hidden="true"><i id="prog"></i></div>
+    </div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section id="step3" hidden>
+    <article class="recipe">
+      <span class="tape" aria-hidden="true"></span>
+      <p class="who" id="who"></p>
+      <h2 id="title"></h2>
+      <div class="stack" id="stack" aria-hidden="true"></div>
+      <ol class="ing" id="ing"></ol>
+      <div class="oops" id="oops"></div>
+      <div class="typecard"><small>신이 붙인 이름표</small><strong id="type"></strong></div>
+      <div class="meter"><span>취업 완성도</span><span class="bar"><i id="done"></i></span><span id="donePct">0%</span></div>
+      <p class="quote" id="quote"></p>
+    </article>
+    <article class="jobs">
+      <h3 id="jobsTitle">이 재료로 만들 수 있는 것</h3>
+      <dl>
+        <dt>어울리는 진로</dt><dd id="dJobs"></dd>
+        <dt>추가하면 좋은 재료</dt><dd id="dCerts"></dd>
+        <dt>신의 숙제</dt><dd id="dTask"></dd>
+      </dl>
+      <p class="note">결과를 캡처해서 친구 레시피와 비교해 보세요! 늦잠 비율이 높은 사람이 음료 사기?</p>
+    </article>
+    <div class="row"><button class="btn" id="again" type="button">다른 이름으로 하기</button><button class="btn ghost" id="back" type="button">학과 바꾸기</button></div>
+  </section>
+
+  <footer>
+    <span class="hand">취업 고민은 취업지원처와 함께!</span>
+    <span>재미로 보는 테스트예요. 부족한 재료는 지금부터 채우면 돼요.</span>
+  </footer>
+</div>
+
+<script>
+(function(){
+  // sp: department's special ingredient, nk: nickname noun for the type label
+  var DEPTS=[
+    {g:"공학계열",items:[
+      {n:"건설안전방재학과",sp:["위험 감지 센서","현장의 위험을 먼저 알아채요"],nk:"현장 안전 지킴이",j:"건설현장 안전관리자, 시설·방재 공무원, 시설물 안전점검",c:"건설안전산업기사, 산업안전산업기사"},
+      {n:"환경에너지학과",sp:["지구 사랑","분리수거도 진심인 편"],nk:"지구 수호 엔지니어",j:"환경 분석·측정, 에너지 관리, 환경직 공무원",c:"대기환경산업기사, 수질환경산업기사"},
+      {n:"소방안전관리학과",sp:["불 앞의 침착함","위기에서 오히려 차분해져요"],nk:"생명 지킴이",j:"소방공무원, 소방시설 관리, 기업 안전관리자",c:"소방설비산업기사, 소방안전관리자 1급"},
+      {n:"전기전자공학과",sp:["회로 읽는 눈","전선만 봐도 흐름이 보여요"],nk:"전류 마스터",j:"전기설비 엔지니어, 전기직 공무원, 전자 생산기술",c:"전기산업기사, 전자산업기사"},
+      {n:"컴퓨터공학과",sp:["버그 잡는 집념","오류 메시지를 보면 눈이 반짝"],nk:"코드 장인",j:"소프트웨어 개발, 정보보안, 전산직 공무원",c:"정보처리산업기사, 리눅스마스터"},
+      {n:"건축인테리어학과",sp:["공간 감각","방에 들어가면 배치부터 봐요"],nk:"공간 디자이너",j:"실내건축 디자인, 건축 현장 관리, 건축직 공무원",c:"실내건축산업기사, 건축산업기사"},
+      {n:"첨단기술융합학부",sp:["융합 두뇌","이것저것 섞어서 새로 만들어요"],nk:"미래 기술 개척자",j:"스마트공장 운영, 생산·품질 관리, 융합기술 엔지니어",c:"생산자동화산업기사, 품질경영산업기사"}]},
+    {g:"인문사회계열",items:[
+      {n:"자치행정학과",sp:["민원 해결력","복잡한 일도 술술 정리해요"],nk:"지역 살림꾼",j:"행정직 공무원, 공공기관 사무직, 지방자치단체",c:"컴퓨터활용능력, 한국사능력검정시험"},
+      {n:"경찰행정학과",sp:["정의감","불의를 보면 못 참아요"],nk:"정의의 수호자",j:"경찰공무원, 교정·출입국 공무원, 경호·보안",c:"한국사능력검정시험, 컴퓨터활용능력"},
+      {n:"토지행정학과",sp:["땅 보는 눈","지도 앱을 오래 보는 편"],nk:"땅의 해결사",j:"지적직 공무원, 부동산 공기업, 감정평가 사무",c:"지적산업기사, 공인중개사"}]},
+    {g:"자연과학계열",items:[
+      {n:"호텔조리제빵학과",sp:["황금 손맛","냄새만 맡아도 간을 알아요"],nk:"맛의 연금술사",j:"호텔 조리사, 제과제빵사, 외식 창업",c:"한식·양식조리기능사, 제과·제빵기능사"},
+      {n:"뷰티코디네이션학과",sp:["금손 센스","남의 머리도 그냥 못 지나쳐요"],nk:"아름다움 설계자",j:"헤어·메이크업 아티스트, 피부관리사, 뷰티 매장 운영",c:"미용사(일반·메이크업·피부)"},
+      {n:"작업치료학과",sp:["따뜻한 공감력","이야기를 끝까지 들어 줘요"],nk:"일상 회복 도우미",j:"병원·재활센터 작업치료사, 아동발달센터, 복지시설",c:"작업치료사 국가시험"},
+      {n:"스마트팜학과",sp:["초록 손가락","식물이 나만 보면 잘 자라요"],nk:"미래 농업 CEO",j:"스마트팜 운영, 농업직 공무원, 농업기술센터",c:"시설원예기사, 농산물품질관리사"}]}
+  ];
+  var GOOD=[["성실함","출석률 하나는 자신 있어요"],["끈기","한 번 붙잡으면 끝까지"],["책임감","맡은 일은 무조건 해내요"],["호기심","궁금한 건 바로 검색"],["센스","눈치가 빠른 편"],["친화력","처음 본 사람과도 금방 친해져요"],["집중력","몰입하면 시간 가는 줄 몰라요"],["리더십","조별 과제에서 자연스럽게 조장"],["꼼꼼함","오타를 그냥 못 넘겨요"],["긍정 에너지","주변까지 밝아져요"],["손재주","손으로 하는 건 금방 배워요"],["발표력","마이크 잡으면 달라져요"],["배려심","남의 컨디션을 먼저 챙겨요"],["계획력","다이어리 꾸미기 장인"]];
+  var FUN=[["늦잠","알람 5개는 기본"],["커피","카페인 없이는 부팅 불가"],["미루기","'내일부터'가 입버릇"],["야식","밤 11시의 라면 앞에 약함"],["걱정","일어나지 않은 일까지 걱정"],["딴짓","공부하려고 앉으면 책상 정리부터"],["벼락치기 능력","마감 1시간 전 초인 모드"],["귀차니즘","누우면 일어나기 싫어요"],["무한 스크롤","쇼츠 하나만 보려다 한 시간"],["배고픔","수업 끝나기 10분 전부터 배고파요"]];
+  var OOPS=["신이 졸다가 「{f}」을(를) 한 스푼 더 쏟았어요.","신이 재채기하는 바람에 「{f}」이(가) 조금 더 들어갔어요.","포장 직전에 「{f}」을(를) 몰래 추가한 흔적이 있어요.","레시피에 없던 「{f}」이(가) 어쩐지 섞여 있어요."];
+  var ADJ={"성실함":"성실한","끈기":"끈질긴","책임감":"믿음직한","호기심":"호기심 많은","센스":"센스 만점","친화력":"인싸력 갖춘","집중력":"몰입형","리더십":"이끄는","꼼꼼함":"꼼꼼한","긍정 에너지":"햇살 같은","손재주":"금손","발표력":"말 잘하는","배려심":"다정한","계획력":"계획적인"};
+  var QUOTE={hi:["이번 작품은 꽤 잘 나왔군. 세상에 내보내도 되겠다.","이 정도면 신의 역작이다. 면접관도 알아볼 거야.","재료 배합이 완벽해. 이제 기회만 잡으면 된다."],mid:["좋은 재료는 다 넣었다. 나머지는 네가 채우렴.","조금 덜 구워졌지만 그게 매력이지.","완성까지 한 걸음. 그 한 걸음은 네 몫이다."],lo:["음… 재료 비율을 다시 보니 웃음이 나는구나.","오늘은 늦잠 재료가 좀 과했다. 내일부터 다시 굽자.","미완성이라 다행이다. 아직 넣을 재료가 많다는 뜻이니까."]};
+  var TASK={"늦잠":"알람을 침대 밖에 두고 자기","커피":"오늘은 커피 대신 물 한 잔","미루기":"미뤄 둔 일 딱 5분만 시작하기","야식":"오늘 밤은 야식 대신 일찍 자기","걱정":"걱정을 종이에 적고 하나만 해결하기","딴짓":"25분 타이머 켜고 한 가지에 집중하기","벼락치기 능력":"가장 가까운 마감일 하루 앞당기기","귀차니즘":"이력서 사진부터 찍어 두기","무한 스크롤":"SNS 앱 하루 30분 제한 걸기","배고픔":"공부 가방에 간식 하나 챙기기"};
+  var COL=["#FF7A45","#8DB8FF","#5ED3A8","#FFE14D","#FF8FB1","#C3B1FF"];
+  var $=function(id){return document.getElementById(id)};
+  var dept=null;
+
+  // department picker
+  var g=$('groups');
+  DEPTS.forEach(function(grp,gi){
+    var fs=document.createElement('fieldset');var lg=document.createElement('legend');lg.textContent=grp.g;fs.appendChild(lg);
+    var box=document.createElement('div');box.className='opts';
+    grp.items.forEach(function(d,di){
+      var lab=document.createElement('label');lab.className='opt';
+      var inp=document.createElement('input');inp.type='radio';inp.name='dept';inp.id='d'+gi+'_'+di;inp.value=gi+'_'+di;
+      var sp=document.createElement('span');sp.textContent=d.n;lab.appendChild(inp);lab.appendChild(sp);box.appendChild(lab);
+    });
+    fs.appendChild(box);g.appendChild(fs);
+  });
+  function ready(){$('make').disabled=!($('nm').value.trim()&&dept)}
+  g.addEventListener('change',function(e){if(e.target.name==='dept'){var p=e.target.value.split('_');dept=DEPTS[+p[0]].items[+p[1]];$('err').hidden=true;ready()}});
+  $('nm').addEventListener('input',ready);
+
+  // seeded random so the same name + department always gives the same recipe
+  function seed(str){var h=1779033703^str.length;for(var i=0;i<str.length;i++){h=Math.imul(h^str.charCodeAt(i),3432918353);h=h<<13|h>>>19}return function(){h=Math.imul(h^h>>>16,2246822507);h=Math.imul(h^h>>>13,3266489909);return ((h^=h>>>16)>>>0)/4294967296}}
+  function pick(r,arr){return arr[Math.floor(r()*arr.length)]}
+  function take(r,arr,n){var a=arr.slice(),o=[];while(o.length<n&&a.length){o.push(a.splice(Math.floor(r()*a.length),1)[0])}return o}
+
+  function show(n){['step1','step2','step3'].forEach(function(id,i){$(id).hidden=(i!==n)});window.scrollTo({top:0,behavior:'smooth'})}
+
+  $('make').addEventListener('click',function(){
+    var name=$('nm').value.trim();
+    if(!name||!dept){$('err').hidden=false;return}
+    show(1);
+    var steps=["재료를 고르는 중…","「"+dept.sp[0]+"」 듬뿍 넣는 중…","영혼을 불어넣는 중…","오븐에서 굽는 중…","포장 리본 묶는 중…"];
+    var k=0;$('prog').style.width='0';$('msg').textContent=steps[0];
+    var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var iv=setInterval(function(){k++;$('prog').style.width=(k/steps.length*100)+'%';
+      if(k<steps.length){$('msg').textContent=steps[k]}else{clearInterval(iv);build(name);show(2)}},reduce?60:550);
+  });
+  $('again').addEventListener('click',function(){$('nm').value='';ready();show(0);$('nm').focus()});
+  $('back').addEventListener('click',function(){show(0)});
+
+  function build(name){
+    var r=seed(name+'|'+dept.n);
+    var goods=take(r,GOOD,2), funs=take(r,FUN,2);
+    var extra=r()<0.5?take(r,GOOD.filter(function(x){return goods.indexOf(x)<0}),1)[0]:funs[1];
+    var ings=[{n:dept.sp[0],d:dept.sp[1],k:'sp'},{n:goods[0][0],d:goods[0][1],k:'g'},{n:goods[1][0],d:goods[1][1],k:'g'},{n:funs[0][0],d:funs[0][1],k:'f'}];
+    ings.push(extra===funs[1]?{n:funs[1][0],d:funs[1][1],k:'f'}:{n:extra[0],d:extra[1],k:'g'});
+    // weights: special 15-35, others 5-30, funny can spike
+    var w=ings.map(function(x){return x.k==='sp'?15+r()*20:x.k==='f'?4+Math.pow(r(),1.6)*42:6+r()*24});
+    var sum=w.reduce(function(a,b){return a+b},0);
+    var pct=w.map(function(x){return Math.max(1,Math.round(x/sum*100))});
+    var diff=100-pct.reduce(function(a,b){return a+b},0);var mi=pct.indexOf(Math.max.apply(null,pct));pct[mi]+=diff;
+    ings.forEach(function(x,i){x.p=pct[i];x.c=COL[i]});
+    ings.sort(function(a,b){return b.p-a.p});
+    var funTotal=ings.filter(function(x){return x.k==='f'}).reduce(function(a,x){return a+x.p},0);
+    var topFun=ings.filter(function(x){return x.k==='f'})[0];
+    var topGood=ings.filter(function(x){return x.k==='g'})[0];
+    var done=Math.max(12,Math.min(99,Math.round(100-funTotal*1.1+(r()*14-7))));
+
+    $('who').textContent=dept.n;
+    $('title').innerHTML='신이 <em></em>을(를) 만들 때 넣은 재료';$('title').querySelector('em').textContent=name;
+    var st=$('stack');st.innerHTML='';
+    ings.forEach(function(x){var i=document.createElement('i');i.style.background=x.c;st.appendChild(i)});
+    requestAnimationFrame(function(){requestAnimationFrame(function(){[].forEach.call(st.children,function(el,i){el.style.width=ings[i].p+'%'})})});
+    $('ing').innerHTML='';
+    ings.forEach(function(x){
+      var li=document.createElement('li');
+      li.innerHTML='<span class="sw"></span><span class="nm"></span><span class="pc"></span>';
+      li.querySelector('.sw').style.background=x.c;
+      li.querySelector('.nm').textContent=x.n;var sm=document.createElement('small');sm.textContent=x.d;li.querySelector('.nm').appendChild(sm);
+      li.querySelector('.pc').textContent=x.p+'%';$('ing').appendChild(li);
+    });
+    var oopsFun=pick(r,FUN.filter(function(f){return !ings.some(function(x){return x.n===f[0]})}));
+    $('oops').innerHTML='<b>제작 사고 보고서</b>';$('oops').appendChild(document.createTextNode(pick(r,OOPS).replace('{f}',oopsFun[0])));
+    var label=funTotal>=45?(topFun.n+' 과다 · 충전 중인 '+dept.nk):(ADJ[topGood.n]||'든든한')+' '+dept.nk;
+    $('type').textContent=label;
+    $('done').style.width='0';requestAnimationFrame(function(){requestAnimationFrame(function(){$('done').style.width=done+'%'})});
+    $('donePct').textContent=done+'%';
+    $('quote').textContent='신의 한마디: "'+pick(r,done>=75?QUOTE.hi:done>=50?QUOTE.mid:QUOTE.lo)+'"';
+    $('jobsTitle').textContent=name+'(으)로 만들 수 있는 것';
+    $('dJobs').textContent=dept.j;$('dCerts').textContent=dept.c;
+    $('dTask').textContent=TASK[topFun.n]||'오늘 할 일 하나 끝내기';
+  }
+})();
+</script>
+
+</body>
+</html>
