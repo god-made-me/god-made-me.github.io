@@ -87,7 +87,23 @@ ol.ing .pc{font-family:var(--display);font-size:24px}
 .quote{margin:0;font-family:var(--hand);font-size:26px;line-height:1.25}
 .meter{display:flex;align-items:center;gap:10px;font-weight:700;font-size:14px}
 .meter .bar{flex:1;height:14px;border:2px solid var(--ink);background:var(--paper);min-width:0}
+.meter .bar{position:relative}
 .meter .bar i{display:block;height:100%;background:var(--mint);width:0;transition:width .9s ease .3s}
+.meter .bar b{position:absolute;top:0;bottom:0;left:0;width:0;background:repeating-linear-gradient(45deg,rgba(255,122,69,.55) 0 5px,transparent 5px 10px);transition:left .9s ease .3s,width .9s ease .9s}
+.boost{margin:-6px 0 0;font-size:13.5px;font-weight:700;color:var(--ink-2)}
+.boost em{font-style:normal;background:var(--accent);color:var(--ink);padding:0 5px;border:1.5px solid var(--ink)}
+.rx{position:relative;background:var(--card);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:18px 16px 16px;display:flex;flex-direction:column;gap:12px}
+.rx .stamp{position:absolute;top:-16px;right:14px;background:var(--accent);border:2.5px solid var(--ink);padding:2px 10px;font-family:var(--display);font-size:15px;transform:rotate(6deg)}
+.rx h3{margin:0;font-family:var(--display);font-weight:400;font-size:22px;line-height:1.2}
+.rx ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:10px}
+.rx li{border:2px solid var(--ink);padding:10px 12px;background:var(--paper);display:flex;flex-direction:column;gap:2px}
+.rx li small{font-size:13px;color:var(--ink-2);font-weight:700}
+.rx li strong{font-family:var(--display);font-weight:400;font-size:18px;line-height:1.3}
+.rx li span{font-size:14.5px}
+.visit{background:var(--ink);color:var(--paper);padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.visit b{font-family:var(--display);font-weight:400;font-size:20px;color:var(--hi);line-height:1.3}
+.visit span{font-size:14.5px}
+.visit .tel{font-weight:700;user-select:all;color:var(--paper)}
 .jobs{background:var(--card);border:3px solid var(--ink);box-shadow:5px 5px 0 var(--ink);padding:16px;display:flex;flex-direction:column;gap:10px}
 .jobs h3{margin:0;font-family:var(--display);font-weight:400;font-size:20px}
 dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 12px;align-items:baseline}
@@ -139,15 +155,22 @@ footer .hand{font-family:var(--hand);font-size:24px;line-height:1.1;color:var(--
       <ol class="ing" id="ing"></ol>
       <div class="oops" id="oops"></div>
       <div class="typecard"><small>신이 붙인 이름표</small><strong id="type"></strong></div>
-      <div class="meter"><span>취업 완성도</span><span class="bar"><i id="done"></i></span><span id="donePct">0%</span></div>
+      <div class="meter"><span>취업 완성도</span><span class="bar"><i id="done"></i><b id="boostBar"></b></span><span id="donePct">0%</span></div>
+      <p class="boost" id="boost"></p>
       <p class="quote" id="quote"></p>
+    </article>
+    <article class="rx" aria-labelledby="rxTitle">
+      <span class="stamp" aria-hidden="true">신의 처방전</span>
+      <h3 id="rxTitle">부족한 재료는 취업지원처에서 채워요</h3>
+      <ol id="rx"></ol>
+      <div class="visit"><b>이 화면을 들고 취업지원처에 들러 보세요!</b><span>신이 덜 넣은 재료, 학교 프로그램으로 바로 채울 수 있어요.</span><span>취업지원처 문의 <span class="tel">041-635-6656</span></span></div>
     </article>
     <article class="jobs">
       <h3 id="jobsTitle">이 재료로 만들 수 있는 것</h3>
       <dl>
         <dt>어울리는 진로</dt><dd id="dJobs"></dd>
         <dt>추가하면 좋은 재료</dt><dd id="dCerts"></dd>
-        <dt>신의 숙제</dt><dd id="dTask"></dd>
+        <dt>오늘의 숙제</dt><dd id="dTask"></dd>
       </dl>
       <p class="note">결과를 캡처해서 친구 레시피와 비교해 보세요! 늦잠 비율이 높은 사람이 음료 사기?</p>
     </article>
@@ -156,7 +179,7 @@ footer .hand{font-family:var(--hand);font-size:24px;line-height:1.1;color:var(--
 
   <footer>
     <span class="hand">취업 고민은 취업지원처와 함께!</span>
-    <span>재미로 보는 테스트예요. 부족한 재료는 지금부터 채우면 돼요.</span>
+    <span>재미로 보는 테스트예요. 부족한 재료는 취업지원처 프로그램으로 채워 보세요.</span>
   </footer>
 </div>
 
@@ -187,6 +210,9 @@ footer .hand{font-family:var(--hand);font-size:24px;line-height:1.1;color:var(--
   var OOPS=["신이 졸다가 「{f}」을(를) 한 스푼 더 쏟았어요.","신이 재채기하는 바람에 「{f}」이(가) 조금 더 들어갔어요.","포장 직전에 「{f}」을(를) 몰래 추가한 흔적이 있어요.","레시피에 없던 「{f}」이(가) 어쩐지 섞여 있어요."];
   var ADJ={"성실함":"성실한","끈기":"끈질긴","책임감":"믿음직한","호기심":"호기심 많은","센스":"센스 만점","친화력":"인싸력 갖춘","집중력":"몰입형","리더십":"이끄는","꼼꼼함":"꼼꼼한","긍정 에너지":"햇살 같은","손재주":"금손","발표력":"말 잘하는","배려심":"다정한","계획력":"계획적인"};
   var QUOTE={hi:["이번 작품은 꽤 잘 나왔군. 세상에 내보내도 되겠다.","이 정도면 신의 역작이다. 면접관도 알아볼 거야.","재료 배합이 완벽해. 이제 기회만 잡으면 된다."],mid:["좋은 재료는 다 넣었다. 나머지는 네가 채우렴.","조금 덜 구워졌지만 그게 매력이지.","완성까지 한 걸음. 그 한 걸음은 네 몫이다."],lo:["음… 재료 비율을 다시 보니 웃음이 나는구나.","오늘은 늦잠 재료가 좀 과했다. 내일부터 다시 굽자.","미완성이라 다행이다. 아직 넣을 재료가 많다는 뜻이니까."]};
+  // what to do at the career center for each "funny" ingredient
+  var RX={"늦잠":["1:1 진로·취업 상담","하루 계획이 안 잡힐 땐 상담 선생님과 목표부터 세워요."],"커피":["브라운백 특강","점심 먹으며 듣는 특강이라 카페인 없이도 집중돼요."],"야식":["브라운백 특강","배고픔과 공부를 한 번에 해결하는 점심 특강이에요."],"배고픔":["브라운백 특강","점심과 취업 정보를 함께 챙길 수 있어요."],"미루기":["자격증 취득 과정","정해진 일정이 있으니 미루고 싶어도 못 미뤄요. (ITQ·실무 엑셀 등)"],"벼락치기 능력":["자격증 취득 과정","벼락치기 대신 기간이 정해진 과정으로 차근차근!"],"걱정":["1:1 진로·취업 상담","혼자 하는 걱정보다 한 번의 상담이 빨라요."],"딴짓":["진로 캠프·적성 진단","CARE·FIT 진단으로 내가 집중할 방향을 찾아요."],"무한 스크롤":["진로 캠프·적성 진단","스크롤 대신 나를 탐색하는 2박 3일!"],"귀차니즘":["무료 온라인 강의","집에서 누워서도 들을 수 있는 해커스·에듀윌 강의부터."]};
+  var PUBLIC=["건설안전방재학과","환경에너지학과","소방안전관리학과","전기전자공학과","자치행정학과","경찰행정학과","토지행정학과","스마트팜학과"];
   var TASK={"늦잠":"알람을 침대 밖에 두고 자기","커피":"오늘은 커피 대신 물 한 잔","미루기":"미뤄 둔 일 딱 5분만 시작하기","야식":"오늘 밤은 야식 대신 일찍 자기","걱정":"걱정을 종이에 적고 하나만 해결하기","딴짓":"25분 타이머 켜고 한 가지에 집중하기","벼락치기 능력":"가장 가까운 마감일 하루 앞당기기","귀차니즘":"이력서 사진부터 찍어 두기","무한 스크롤":"SNS 앱 하루 30분 제한 걸기","배고픔":"공부 가방에 간식 하나 챙기기"};
   var COL=["#FF7A45","#8DB8FF","#5ED3A8","#FFE14D","#FF8FB1","#C3B1FF"];
   var $=function(id){return document.getElementById(id)};
@@ -219,7 +245,7 @@ footer .hand{font-family:var(--hand);font-size:24px;line-height:1.1;color:var(--
     var name=$('nm').value.trim();
     if(!name||!dept){$('err').hidden=false;return}
     show(1);
-    var steps=["재료를 고르는 중…","「"+dept.sp[0]+"」 듬뿍 넣는 중…","영혼을 불어넣는 중…","오븐에서 굽는 중…","포장 리본 묶는 중…"];
+    var steps=["재료를 고르는 중…","「"+dept.sp[0]+"」 듬뿍 넣는 중…","영혼을 불어넣는 중…","오븐에서 굽는 중…","취업지원처 처방전 쓰는 중…"];
     var k=0;$('prog').style.width='0';$('msg').textContent=steps[0];
     var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var iv=setInterval(function(){k++;$('prog').style.width=(k/steps.length*100)+'%';
@@ -266,6 +292,21 @@ footer .hand{font-family:var(--hand);font-size:24px;line-height:1.1;color:var(--
     $('done').style.width='0';requestAnimationFrame(function(){requestAnimationFrame(function(){$('done').style.width=done+'%'})});
     $('donePct').textContent=done+'%';
     $('quote').textContent='신의 한마디: "'+pick(r,done>=75?QUOTE.hi:done>=50?QUOTE.mid:QUOTE.lo)+'"';
+    var funs2=ings.filter(function(x){return x.k==='f'});
+    var items=[];
+    funs2.forEach(function(f){var r2=RX[f.n];if(r2&&!items.some(function(it){return it.p===r2[0]}))items.push({w:f.n,p:r2[0],d:r2[1]})});
+    var extraRx=PUBLIC.indexOf(dept.n)>=0?{w:null,p:'해커스 무료 공무원 강의',d:'학교 제휴로 공무원 강의를 무료로 들을 수 있어요.'}:{w:null,p:'에듀윌 자격증 강의',d:'학교 제휴 플랫폼에서 '+dept.c.split(',')[0]+' 같은 자격증을 준비해요.'};
+    items.push(extraRx);
+    $('rx').innerHTML='';
+    items.slice(0,3).forEach(function(it){var li=document.createElement('li');
+      var sm=document.createElement('small');sm.textContent=it.w?'부족한 재료 「'+it.w+'」 → 처방':dept.n+' 맞춤 처방';
+      var st=document.createElement('strong');st.textContent=it.p;
+      var sp=document.createElement('span');sp.textContent=it.d;
+      li.appendChild(sm);li.appendChild(st);li.appendChild(sp);$('rx').appendChild(li)});
+    var plus=Math.min(100,done+20)-done;
+    var bb=$('boostBar');bb.style.left='0';bb.style.width='0';
+    requestAnimationFrame(function(){requestAnimationFrame(function(){bb.style.left=done+'%';bb.style.width=plus+'%'})});
+    $('boost').innerHTML='취업지원처 방문 시 예상 완성도 <em></em>';$('boost').querySelector('em').textContent=(done+plus)+'%';
     $('jobsTitle').textContent=name+'(으)로 만들 수 있는 것';
     $('dJobs').textContent=dept.j;$('dCerts').textContent=dept.c;
     $('dTask').textContent=TASK[topFun.n]||'오늘 할 일 하나 끝내기';
